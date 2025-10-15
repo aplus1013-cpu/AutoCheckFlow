@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>현장 활동일보</title>
+    <link rel="stylesheet" href="index.css">
+    <script type="module" src="index.tsx"></script>
+</head>
+<body>
+    <div id="app-container">
+        <header>
+            <h1>현장 활동일보 <strong>·</strong> 체크형 입력 (MVP)</h1>
+            <p>선택만 하면 활동내역이 자동으로 완성됩니다.</p>
+        </header>
+
+        <main>
+            <section id="activity-builder" class="form-group">
+                <h3>1. 활동 선택 및 추가</h3>
+                <div class="form-group">
+                    <label>방문목적 (하나씩 선택 후 추가)</label>
+                    <div id="purpose-group" class="button-group" role="radiogroup">
+                        <!-- Buttons will be populated by JS -->
+                    </div>
+                </div>
+
+                <div id="sub-sections">
+                    <div id="displayType-section" class="form-group sub-section hidden">
+                        <label>매대유형 (복수 선택)</label>
+                        <div id="displayType-group" class="button-group" role="group"></div>
+                    </div>
+                    <div id="products-section" class="form-group sub-section hidden">
+                        <label for="new-product-input">
+                            관련 제품 (복수 선택)
+                            <button id="show-add-product-btn" class="add-item-btn" aria-label="Add new product">+</button>
+                        </label>
+                        <div id="add-product-form" class="add-item-form hidden">
+                            <input type="text" id="new-product-input" placeholder="새 제품명 입력">
+                            <button id="add-product-button" class="save-item-btn">추가</button>
+                        </div>
+                        <div id="products-group" class="button-group" role="group"></div>
+                    </div>
+                    <div id="improvementMethod-section" class="form-group sub-section hidden">
+                        <label>개선방법 (복수 선택)</label>
+                        <div id="improvementMethod-group" class="button-group" role="group"></div>
+                    </div>
+                    <div id="location-section" class="form-group sub-section hidden">
+                        <label>위치</label>
+                        <input type="text" id="location-input" placeholder="ex) 라면매대 옆" class="full-width-input">
+                    </div>
+                    <div id="eventActions-section" class="form-group sub-section hidden">
+                        <label>조치 내용 (복수 선택)</label>
+                        <div id="eventActions-group" class="button-group" role="group"></div>
+                    </div>
+                    <div id="requestMethod-section" class="form-group sub-section hidden">
+                        <label>요청 대상 (복수 선택)</label>
+                        <div id="requestMethod-group" class="button-group" role="group"></div>
+                    </div>
+                    <div id="requestMean-section" class="form-group sub-section hidden">
+                        <label>요청 수단 (복수 선택)</label>
+                        <div id="requestMean-group" class="button-group" role="group"></div>
+                    </div>
+                     <div id="otherActivityActions-section" class="form-group sub-section hidden">
+                        <label>상황/조치 (복수 선택)</label>
+                        <div id="otherActivityActions-group" class="button-group" role="group"></div>
+                    </div>
+                </div>
+                <button id="add-activity-btn" class="primary-action" disabled>활동 추가 (+)</button>
+            </section>
+
+            <section class="form-group">
+                <h3>2. 특이사항 및 기타</h3>
+                 <div class="form-group">
+                    <div class="label-with-action">
+                        <label for="special-notes">특이사항</label>
+                        <button class="add-note-btn" data-source-id="special-notes" data-label="특이사항">내용 추가 (+)</button>
+                    </div>
+                    <textarea id="special-notes" rows="3" placeholder="ex) 진간장 1.7 품절, 발주요청 / 행사매대 청결양호" aria-label="Special Notes"></textarea>
+                </div>
+                 <div class="form-group">
+                    <div class="label-with-action">
+                        <label for="recommended-sales">권장판매 (제품&상황&방법 직접작성)</label>
+                         <button class="add-note-btn" data-source-id="recommended-sales" data-label="권장판매">내용 추가 (+)</button>
+                    </div>
+                    <textarea id="recommended-sales" rows="3" aria-label="Recommended Sales"></textarea>
+                </div>
+                 <div class="form-group">
+                    <div class="label-with-action">
+                         <label for="agency-suggestions">대리점측 제안사항</label>
+                         <button class="add-note-btn" data-source-id="agency-suggestions" data-label="대리점측 제안사항">내용 추가 (+)</button>
+                    </div>
+                    <textarea id="agency-suggestions" rows="3" aria-label="Agency Suggestions"></textarea>
+                </div>
+                 <div class="form-group">
+                    <div class="label-with-action">
+                        <label for="store-requests">매장측 요청 특이사항</label>
+                        <button class="add-note-btn" data-source-id="store-requests" data-label="매장측 요청 특이사항">내용 추가 (+)</button>
+                    </div>
+                    <textarea id="store-requests" rows="3" aria-label="Store Requests"></textarea>
+                </div>
+                 <div class="form-group">
+                    <div class="label-with-action">
+                        <label for="competitor-notes">경쟁사 특이사항</label>
+                        <button class="add-note-btn" data-source-id="competitor-notes" data-label="경쟁사 특이사항">내용 추가 (+)</button>
+                    </div>
+                    <textarea id="competitor-notes" rows="3" aria-label="Competitor Notes"></textarea>
+                </div>
+            </section>
+
+            <section id="summary-section" aria-live="polite">
+                <h2>3. 활동내역 자동요약</h2>
+                <div id="summary-output">
+                    <ul id="summary-list">
+                        <!-- Summary lines will be populated by JS -->
+                    </ul>
+                    <div id="summary-meta">
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button id="copy-text-btn" class="primary">텍스트 복사</button>
+                    <button id="copy-json-btn">JSON 복사</button>
+                    <button id="reset-btn">초기화</button>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
