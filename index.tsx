@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- DATA ---
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const DATA = {
         purpose: ['입점활동', '진열개선', '연관진열', '행사매대유치', '발주요청', '기타활동'],
         products: loadProducts(),
-        displayTypes: ['본매대', '엔드매대', '평매대'],
+        displayTypes: ['본매대', '엔드매대', '평매대', '걸이매대', '샘표집기', '기타집기', '간이매대', '연관진열소품'],
         otherActivityActions: ['보충진열', '유통기한 확인 및 선입선출', '청결작업', '행사세팅', '스티커부착', '창고정리', '가격표조치', '정기엔드교체', '매장측요청 엔드교체', '유인행사사원 점검', '향후 입점활동을 위한 소통', '매장측 요청으로 타사진열도움'],
         improvementMethods: ['1줄늘리기', '골든존으로 이동', '2줄이상늘리기'],
         requestMethods: ['매장담당자', '대리점담당자'],
@@ -68,19 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSelection = { ...initialSelection };
 
     let globalInfo = {
-        notes: '',
-        recommendedSales: '',
-        agencySuggestions: '',
-        storeRequests: '',
-        competitorNotes: ''
+        'consolidated-notes': '',
     };
 
     // --- DOM ELEMENTS ---
-    const notesEl = document.getElementById('special-notes') as HTMLTextAreaElement;
-    const recommendedSalesEl = document.getElementById('recommended-sales') as HTMLTextAreaElement;
-    const agencySuggestionsEl = document.getElementById('agency-suggestions') as HTMLTextAreaElement;
-    const storeRequestsEl = document.getElementById('store-requests') as HTMLTextAreaElement;
-    const competitorNotesEl = document.getElementById('competitor-notes') as HTMLTextAreaElement;
+    const consolidatedNotesEl = document.getElementById('consolidated-notes') as HTMLTextAreaElement;
     const locationInputEl = document.getElementById('location-input') as HTMLInputElement;
     const addActivityBtn = document.getElementById('add-activity-btn') as HTMLButtonElement;
     const summaryListEl = document.getElementById('summary-list')!;
@@ -99,9 +92,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderOptions(elementId: string, items: string[], category: keyof typeof initialSelection, multiSelect: boolean) {
         const groupEl = document.getElementById(elementId)!;
         groupEl.innerHTML = '';
+        
+        const methodButtonGroups = [
+            'improvementMethod-group',
+            'eventActions-group',
+            'requestMethod-group',
+            'requestMean-group',
+            'otherActivityActions-group'
+        ];
+        const isMethodGroup = methodButtonGroups.includes(elementId);
+
         items.forEach(item => {
             const button = document.createElement('button');
             button.className = 'toggle-button';
+            if (isMethodGroup) {
+                button.classList.add('method-button');
+            }
             button.textContent = item;
             button.dataset.value = item;
             
@@ -147,11 +153,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateVisibleSections() {
         document.querySelectorAll<HTMLElement>('.sub-section').forEach(el => el.classList.add('hidden'));
+        const commonContainer = document.getElementById('common-sections');
+
         if (currentSelection.purpose && PURPOSE_CONFIG[currentSelection.purpose]) {
+            commonContainer?.classList.remove('hidden');
             const { sections } = PURPOSE_CONFIG[currentSelection.purpose];
             sections.forEach(sectionId => {
                 document.getElementById(`${sectionId}-section`)?.classList.remove('hidden');
             });
+        } else {
+            commonContainer?.classList.add('hidden');
         }
     }
 
@@ -251,11 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', handleAddNote);
     });
 
-    notesEl.addEventListener('input', () => { globalInfo.notes = notesEl.value; });
-    recommendedSalesEl.addEventListener('input', () => { globalInfo.recommendedSales = recommendedSalesEl.value; });
-    agencySuggestionsEl.addEventListener('input', () => { globalInfo.agencySuggestions = agencySuggestionsEl.value; });
-    storeRequestsEl.addEventListener('input', () => { globalInfo.storeRequests = storeRequestsEl.value; });
-    competitorNotesEl.addEventListener('input', () => { globalInfo.competitorNotes = competitorNotesEl.value; });
+    consolidatedNotesEl.addEventListener('input', () => { globalInfo['consolidated-notes'] = consolidatedNotesEl.value; });
     
     locationInputEl.addEventListener('input', () => {
         currentSelection.location = locationInputEl.value;
@@ -314,17 +321,8 @@ document.addEventListener('DOMContentLoaded', () => {
         activities = [];
         nextActivityId = 0;
         
-        globalInfo.notes = '';
-        globalInfo.recommendedSales = '';
-        globalInfo.agencySuggestions = '';
-        globalInfo.storeRequests = '';
-        globalInfo.competitorNotes = '';
-        
-        notesEl.value = '';
-        recommendedSalesEl.value = '';
-        agencySuggestionsEl.value = '';
-        storeRequestsEl.value = '';
-        competitorNotesEl.value = '';
+        globalInfo['consolidated-notes'] = '';
+        consolidatedNotesEl.value = '';
 
         resetCurrentSelection();
         updateSummaryUI();

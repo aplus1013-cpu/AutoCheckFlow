@@ -25,21 +25,24 @@
                 </div>
 
                 <div id="sub-sections">
-                    <div id="displayType-section" class="form-group sub-section hidden">
-                        <label>매대유형 (복수 선택)</label>
-                        <div id="displayType-group" class="button-group" role="group"></div>
-                    </div>
-                    <div id="products-section" class="form-group sub-section hidden">
-                        <label for="new-product-input">
-                            관련 제품 (복수 선택)
-                            <button id="show-add-product-btn" class="add-item-btn" aria-label="Add new product">+</button>
-                        </label>
-                        <div id="add-product-form" class="add-item-form hidden">
-                            <input type="text" id="new-product-input" placeholder="새 제품명 입력">
-                            <button id="add-product-button" class="save-item-btn">추가</button>
+                    <div id="common-sections" class="common-sections-container hidden">
+                         <div id="displayType-section" class="form-group">
+                            <label>매대유형 (복수 선택)</label>
+                            <div id="displayType-group" class="button-group" role="group"></div>
                         </div>
-                        <div id="products-group" class="button-group" role="group"></div>
+                        <div id="products-section" class="form-group">
+                            <label for="new-product-input">
+                                관련 제품 (복수 선택)
+                                <button id="show-add-product-btn" class="add-item-btn" aria-label="Add new product">+</button>
+                            </label>
+                            <div id="add-product-form" class="add-item-form hidden">
+                                <input type="text" id="new-product-input" placeholder="새 제품명 입력">
+                                <button id="add-product-button" class="save-item-btn">추가</button>
+                            </div>
+                            <div id="products-group" class="button-group" role="group"></div>
+                        </div>
                     </div>
+
                     <div id="improvementMethod-section" class="form-group sub-section hidden">
                         <label>개선방법 (복수 선택)</label>
                         <div id="improvementMethod-group" class="button-group" role="group"></div>
@@ -72,38 +75,11 @@
                 <h3>2. 특이사항 및 기타</h3>
                  <div class="form-group">
                     <div class="label-with-action">
-                        <label for="special-notes">특이사항</label>
-                        <button class="add-note-btn" data-source-id="special-notes" data-label="특이사항">내용 추가 (+)</button>
+                        <label for="consolidated-notes">특이사항</label>
+                        <button class="add-note-btn" data-source-id="consolidated-notes" data-label="특이사항">내용 추가 (+)</button>
                     </div>
-                    <textarea id="special-notes" rows="3" placeholder="ex) 진간장 1.7 품절, 발주요청 / 행사매대 청결양호" aria-label="Special Notes"></textarea>
-                </div>
-                 <div class="form-group">
-                    <div class="label-with-action">
-                        <label for="recommended-sales">권장판매 (제품&상황&방법 직접작성)</label>
-                         <button class="add-note-btn" data-source-id="recommended-sales" data-label="권장판매">내용 추가 (+)</button>
-                    </div>
-                    <textarea id="recommended-sales" rows="3" aria-label="Recommended Sales"></textarea>
-                </div>
-                 <div class="form-group">
-                    <div class="label-with-action">
-                         <label for="agency-suggestions">대리점측 제안사항</label>
-                         <button class="add-note-btn" data-source-id="agency-suggestions" data-label="대리점측 제안사항">내용 추가 (+)</button>
-                    </div>
-                    <textarea id="agency-suggestions" rows="3" aria-label="Agency Suggestions"></textarea>
-                </div>
-                 <div class="form-group">
-                    <div class="label-with-action">
-                        <label for="store-requests">매장측 요청 특이사항</label>
-                        <button class="add-note-btn" data-source-id="store-requests" data-label="매장측 요청 특이사항">내용 추가 (+)</button>
-                    </div>
-                    <textarea id="store-requests" rows="3" aria-label="Store Requests"></textarea>
-                </div>
-                 <div class="form-group">
-                    <div class="label-with-action">
-                        <label for="competitor-notes">경쟁사 특이사항</label>
-                        <button class="add-note-btn" data-source-id="competitor-notes" data-label="경쟁사 특이사항">내용 추가 (+)</button>
-                    </div>
-                    <textarea id="competitor-notes" rows="3" aria-label="Competitor Notes"></textarea>
+                    <p class="description">예시 : 권장판매_ (제품&상황&방법 직접작성), 대리점측 제안사항, 매장측 요청 특이사항, 경쟁사 특이사항, 그 외 기타등등 매장에서 일어난일, 건의사항등을 자유롭게 추가로 작성하셔도 됩니다</p>
+                    <textarea id="consolidated-notes" rows="4" aria-label="특이사항 및 기타"></textarea>
                 </div>
             </section>
 

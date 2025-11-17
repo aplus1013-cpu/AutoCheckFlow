@@ -1,3 +1,4 @@
+
 :root {
     --primary-text: #212121;
     --secondary-text: #757575;
@@ -60,6 +61,14 @@ header p {
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 8px;
+}
+
+.description {
+    font-size: 13px;
+    color: var(--secondary-text);
+    margin-top: -4px;
+    margin-bottom: 8px;
+    line-height: 1.4;
 }
 
 .label-with-action {
@@ -143,14 +152,48 @@ select {
     border-color: var(--primary);
 }
 
+.method-button {
+    background-color: #fffbe6;
+    border-color: #ffe58f;
+}
+
+.method-button:hover {
+    background-color: #fff3cd;
+}
+
+.method-button.selected {
+    background-color: #ffc107;
+    color: var(--primary-text);
+    border-color: #ffa000;
+}
+
+
 .hidden {
     display: none !important;
+}
+
+.common-sections-container {
+    border: 1px solid #cccccc;
+    background-color: #fafafa;
+    padding: 16px;
+    border-radius: var(--radius-md);
+    margin-top: 20px;
+    margin-bottom: 24px;
+}
+
+.common-sections-container .form-group:last-child {
+    margin-bottom: 0;
 }
 
 .sub-section {
     margin-top: 20px;
     padding-left: 10px;
     border-left: 3px solid #eee;
+}
+
+.sub-section label {
+    font-weight: 700;
+    font-size: 15px;
 }
 
 .primary-action {
